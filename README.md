@@ -1,38 +1,22 @@
-# sv
+## Ejemplo Twitter en Svelte
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+El ejemplo muestra cómo podría funcionar una página de Twitter.
 
-## Creating a project
+- Queremos replicar el comportamiento de twitter
+- Escribimos en un texto, nos dice cuántos caracteres escribimos
+- BONUS: que nos diga cuántos caracteres nos quedan
+- BONUS 2: mostrarlo con colores distintos. verde si podemos escribir tranquilo, amarillo cuando falten menos de 5 y rojo cuando ya nos pasamos.
 
-If you're seeing this, you've probably already done this step. Congrats!
+Ejercicio extraído de la [guía de binding](https://algo3.uqbar-project.org/gua-prctica-de-ejercicios/ejercicios-binding).
 
-```bash
-# create a new project in the current directory
-npx sv create
+TODO: demo
 
-# create a new project in my-app
-npx sv create my-app
-```
+## Implementación
 
-## Developing
+La URL es `http://localhost:5173`
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+En la variante con template tenemos
 
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+- un estado mutable: el **tweet**, un string
+- un valor calculable o `$derived`, la **cantidad de caracteres restantes**
+- otro valor calculable a partir de los caracteres restantes, **qué clase le corresponde**.
