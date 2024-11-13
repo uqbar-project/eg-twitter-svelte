@@ -1,5 +1,7 @@
 ## Ejemplo Twitter en Svelte
 
+[![Build](https://github.com/uqbar-project/eg-twitter-svelte/actions/workflows/build.yml/badge.svg)](https://github.com/uqbar-project/eg-twitter-svelte/actions/workflows/build.yml)
+
 El ejemplo muestra cómo podría funcionar una página de Twitter.
 
 - Queremos replicar el comportamiento de twitter
