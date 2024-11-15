@@ -11,7 +11,7 @@ El ejemplo muestra cómo podría funcionar una página de Twitter.
 
 Ejercicio extraído de la [guía de binding](https://algo3.uqbar-project.org/gua-prctica-de-ejercicios/ejercicios-binding).
 
-TODO: demo
+TODO: agregar demo gif
 
 ## Implementación
 
@@ -52,4 +52,4 @@ En la variante con template tenemos
 
 ## Test de frontend
 
-TODO
+TODO: explicar tests básicos
