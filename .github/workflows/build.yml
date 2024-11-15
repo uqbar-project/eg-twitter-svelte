@@ -30,9 +30,9 @@ jobs:
 
       - name: Run tests & linter
         run: |
-          npm install
-          npm run lint && npm run check
-          npm run test:ci
+          yarn install
+          yarn run lint && npm run check
+          yarn run test:ci
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v4
         with:
