@@ -22,3 +22,34 @@ En la variante con template tenemos
 - un estado mutable: el **tweet**, un string
 - un valor calculable o `$derived`, la **cantidad de caracteres restantes**
 - otro valor calculable a partir de los caracteres restantes, **qué clase le corresponde**.
+
+```sv
+<script lang="ts">
+	const LONGITUD_MAXIMA = 140
+
+	const claseEspacioRestante = (restantes: number): string =>
+		restantes > 10 ? 'ok' : restantes > 5 ? 'limite' : 'pasado'
+
+	let tweet = $state('')
+	let restantes = $derived(LONGITUD_MAXIMA - tweet.length)
+	let espacioRestanteClass = $derived(claseEspacioRestante(restantes))
+</script>
+
+<article class="container">
+	<h1>Twitter - Svelte</h1>
+	<form name="form" class="form">
+		<div>
+			<textarea ...	bind:value={tweet}></textarea>
+		</div>
+		<div>
+			<span data-testid="restantes" class="badge {espacioRestanteClass}">
+				{restantes}
+			</span>
+		</div>
+	</form>
+</article>
+```
+
+## Test de frontend
+
+TODO
