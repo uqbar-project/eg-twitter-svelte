@@ -1,6 +1,6 @@
 ## Ejemplo Twitter en Svelte
 
-[![Build](https://github.com/uqbar-project/eg-twitter-svelte/actions/workflows/build.yml/badge.svg)](https://github.com/uqbar-project/eg-twitter-svelte/actions/workflows/build.yml)
+[![Build](https://github.com/uqbar-project/eg-twitter-svelte/actions/workflows/build.yml/badge.svg)](https://github.com/uqbar-project/eg-twitter-svelte/actions/workflows/build.yml) [![codecov](https://codecov.io/gh/uqbar-project/eg-twitter-svelte/graph/badge.svg?token=ZSSgf3k2KI)](https://codecov.io/gh/uqbar-project/eg-twitter-svelte)
 
 El ejemplo muestra cómo podría funcionar una página de Twitter.
 
