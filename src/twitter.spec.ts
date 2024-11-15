@@ -13,6 +13,7 @@ describe('twitter', () => {
 
 		const caracteres = screen.getByTestId('restantes')
 		expect(+caracteres.innerHTML).to.equal(140)
+		expect(caracteres.classList.contains('ok')).to.be.true
 	})
 
 	it('should decrease remaining characters if a tweet is written - positive remaining characters', async () => {
