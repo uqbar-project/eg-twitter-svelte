@@ -58,13 +58,91 @@ En los tests decidimos
 - y testear las clases de css cuando estoy cerca del límite...
 - ...o cuando me pasé
 
-## Decisiones de diseño
+## Explorando otras decisiones de diseño
+
+### Tweet de string a un objeto con responsabilidad
 
 El tweet es un string y la cantidad de caracteres restantes es una responsabilidad de la página. En otras variantes podríamos pensar en tener un objeto Tweet:
 
 - que guarde internamente el texto
 - y también sepa decirme la cantidad de caracteres
 
-Hacer esto podría volverlo fácil de testear sin tener que pensar en tener una interfaz de usuario.
+Hacer esto podría volverlo fácil de testear sin tener que pensar en tener una interfaz de usuario. Algo como
 
-TODO: elaborar la otra variante.
+```sv
+<script lang="ts">
+	...
+	class Tweet {
+		constructor(public texto = '') {}
+		get cantidadCaracteres() { return  LONGITUD_MAXIMA - this.texto.length }
+	}
+	const tweet = new Tweet()
+	let texto = $state(tweet.texto)
+	let cantidadCaracteres = $derived(tweet.cantidadCaracteres)
+	let espacioRestanteClass = $derived(claseEspacioRestante(tweet.cantidadCaracteres))
+</script>
+
+<article class="container">
+	<h1>Twitter - Svelte</h1>
+	<form name="form" class="form">
+		<div>
+			<textarea ...
+				bind:value={texto}
+			></textarea>
+		</div>
+		<div>
+			<span data-testid="restantes" class="badge {espacioRestanteClass}">
+				{cantidadCaracteres}
+			...
+```
+
+Pero **Svelte no reacciona si escribimos un tweet**, porque derived está en función de la cantidad de caracteres del tweet, y la relación con el state texto es indirecta: necesitamos ser más explícitos. Ésto sí funcionaría
+
+```ts
+	let texto = $state(tweet.texto)
+	let cantidadCaracteres = $derived(140 - texto.length)
+```
+
+pero la responsabilidad de saber los caracteres nos queda por fuera del objeto Tweet.
+
+### Runa $state con una clase
+
+Svelte nos permite definir un objeto con control de cambios, pero necesitamos utilizar las runas `$state` y `$derived` dentro de la clase:
+
+```sv
+<script lang="ts">
+	...
+
+	const claseEspacioRestante = (restantes: number): string =>
+		restantes > 10 ? 'ok' : restantes > 5 ? 'limite' : 'pasado'
+
+	class Tweet {
+		texto = $state('')
+		cantidadCaracteres = $derived(LONGITUD_MAXIMA - this.texto.length)
+	}
+	const tweet = new Tweet()
+	let espacioRestanteClass = $derived(claseEspacioRestante(tweet.cantidadCaracteres))
+</script>
+
+<article class="container">
+	<h1>Twitter - Svelte</h1>
+	<form name="form" class="form">
+		<div>
+			<textarea ...
+				bind:value={tweet.texto}
+			></textarea>
+		</div>
+		<div>
+			<span data-testid="restantes" class="badge {espacioRestanteClass}">
+				{tweet.cantidadCaracteres}
+			</span>
+```
+
+Fíjense que aquí
+
+- la clase define el estado y los valores calculados para el tweet
+- la clase de css está definido aparte adrede, para separar "modelo de dominio" y cuestiones de vista (css)
+- el input se puede bindear a `tweet.texto` y el span a `tweet.cantidadCaracteres`
+- pero necesitamos el mecanismo de cambios de Svelte => no podemos testearlo en forma independiente
+
+Volviendo a la solución, elegimos quedarnos por ahora con la variante más simple, donde el estado se maneja con un string, al menos hasta que haya más casos de uso que ameriten un modelo más elaborado.
