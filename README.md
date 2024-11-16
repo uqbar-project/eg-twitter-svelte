@@ -11,15 +11,13 @@ El ejemplo muestra cómo podría funcionar una página de Twitter.
 
 Ejercicio extraído de la [guía de binding](https://algo3.uqbar-project.org/gua-prctica-de-ejercicios/ejercicios-binding).
 
-TODO: agregar demo gif
+![demo](./videos/demo.gif)
 
 ## Implementación
 
-La URL es `http://localhost:5173`
+Tenemos
 
-En la variante con template tenemos
-
-- un estado mutable: el **tweet**, un string
+- como estado: el **tweet**, representado con un string
 - un valor calculable o `$derived`, la **cantidad de caracteres restantes**
 - otro valor calculable a partir de los caracteres restantes, **qué clase le corresponde**.
 
@@ -52,4 +50,21 @@ En la variante con template tenemos
 
 ## Test de frontend
 
-TODO: explicar tests básicos
+En los tests decidimos
+
+- testear el estado inicial: el tweet vacío y la cantidad de caracteres con el máximo posible. También testeamos que la clase css muestre los caracteres en verde.
+- escribir una cantidad de caracteres que me deje todavía espacio para seguir escribiendo
+- escribir una cantidad de caracteres que deje una cantidad negativa de caracteres para seguir escribiendo
+- y testear las clases de css cuando estoy cerca del límite...
+- ...o cuando me pasé
+
+## Decisiones de diseño
+
+El tweet es un string y la cantidad de caracteres restantes es una responsabilidad de la página. En otras variantes podríamos pensar en tener un objeto Tweet:
+
+- que guarde internamente el texto
+- y también sepa decirme la cantidad de caracteres
+
+Hacer esto podría volverlo fácil de testear sin tener que pensar en tener una interfaz de usuario.
+
+TODO: elaborar la otra variante.
