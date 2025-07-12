@@ -4,10 +4,14 @@
 
 El ejemplo muestra cómo podría funcionar una página de Twitter.
 
-- Queremos replicar el comportamiento de twitter
-- Escribimos en un texto, nos dice cuántos caracteres escribimos
+- Escribimos un mensaje de texto, nos dice cuántos caracteres escribimos
 - BONUS: que nos diga cuántos caracteres nos quedan
-- BONUS 2: mostrarlo con colores distintos. verde si podemos escribir tranquilo, amarillo cuando falten menos de 5 y rojo cuando ya nos pasamos.
+- BONUS 2: mostrarlo con colores distintos. verde si podemos escribir tranquilo, amarillo cuando falten menos de 5 y rojo cuando ya nos pasamos
+- para jugar:
+  - tener dos inputs, qué sucede con ambos cuando se escribe en uno de ellos?
+	- mostrar en un label el tweet al revés,
+	- o toda la frase en mayúsculas
+	- o reemplazando una palabra por "domingo"
 
 Ejercicio extraído de la [guía de binding](https://algo3.uqbar-project.org/gua-prctica-de-ejercicios/ejercicios-binding).
 
@@ -17,7 +21,7 @@ Ejercicio extraído de la [guía de binding](https://algo3.uqbar-project.org/gua
 
 Tenemos
 
-- como estado: el **tweet**, representado con un string
+- como estado: el **tweet**, representado con un string (binding bidireccional contra el input en la página html)
 - un valor calculable o `$derived`, la **cantidad de caracteres restantes**
 - otro valor calculable a partir de los caracteres restantes, **qué clase le corresponde**.
 
@@ -107,7 +111,7 @@ pero la responsabilidad de saber los caracteres nos queda por fuera del objeto T
 
 ### Runa $state con una clase
 
-Svelte nos permite definir un objeto con control de cambios, pero necesitamos utilizar las runas `$state` y `$derived` dentro de la clase:
+Svelte nos permite definir un objeto con control de cambios, pero necesitamos utilizar las runas `$state` y `$derived` dentro de la clase (en otras tecnologías como Vue este concepto se llama [composable](https://vuejs.org/guide/reusability/composables)):
 
 ```sv
 <script lang="ts">
@@ -143,6 +147,6 @@ Fíjense que aquí
 - la clase define el estado y los valores calculados para el tweet
 - la clase de css está definido aparte adrede, para separar "modelo de dominio" y cuestiones de vista (css)
 - el input se puede bindear a `tweet.texto` y el span a `tweet.cantidadCaracteres`
-- pero necesitamos el mecanismo de cambios de Svelte => no podemos testearlo en forma independiente
+- pero necesitamos el mecanismo de cambios de Svelte => no podemos testearlo como si fuera un objeto de dominio cualquiera
 
 Volviendo a la solución, elegimos quedarnos por ahora con la variante más simple, donde el estado se maneja con un string, al menos hasta que haya más casos de uso que ameriten un modelo más elaborado.
